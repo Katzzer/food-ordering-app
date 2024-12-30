@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFoodOrder, removeFoodOrder } from '@/store/globalSlice';
 import { RootState } from '@/store/store';
 import Image from 'next/image';
-import FoodProps from '@/data/types';
+import {FoodProps} from '@/data/types';
 
 const Food: React.FC<FoodProps> = ({ name, internalName, description, image, price }) => {
     const dispatch = useDispatch();
