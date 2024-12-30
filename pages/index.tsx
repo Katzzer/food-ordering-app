@@ -1,7 +1,7 @@
-"use client"; // Enable Client Component behavior
-
-import Image from "next/image";
+"use client";
 import axios from "axios";
+import Link from "next/link";
+import React from "react";
 
 export default function Home() {
     const sendData = async () => {
@@ -28,40 +28,41 @@ export default function Home() {
     };
 
     return (
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-            <main className="flex flex-col gap-8 row-start-2 items-center sm:items-center text-center">
-                {/* Welcome Message */}
-                <h1 className="text-4xl sm:text-5xl font-bold text-gray-800">
+        <div className="d-flex flex-column justify-content-between min-vh-100 p-4 pb-5 pt-5">
+            <main className="text-center">
+                <h1 className="display-4 fw-bold text-dark">
                     Welcome to Foodie Heaven!
                 </h1>
-                <p className="text-lg sm:text-xl text-gray-600 max-w-xl">
+                <p className="lead text-muted mx-auto" style={{ maxWidth: "600px" }}>
                     Experience the joy of ordering fresh, delicious dishes delivered right to your door in minutes!
                 </p>
 
-                <button className="mt-6 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium rounded-lg shadow-md">
+                <button className="btn btn-primary btn-lg mt-4">
                     Start Ordering
                 </button>
 
-                <Image
-                    src="/images/food-hero.png"
-                    alt="Delicious food"
-                    width={500}
-                    height={300}
-                    className="rounded-lg shadow-lg"
-                />
+                <Link
+                    href="/about"
+                    className="btn btn-success btn-lg mt-4"
+                >
+                    Go to Home Page
+                </Link>
+
             </main>
 
-            <footer className="row-start-3 flex flex-col items-center justify-center gap-4">
+            <footer className="text-center mt-5">
                 <div>
                     Created by <a href="https://www.pavelkostal.com"><u>Pavel Kostal</u></a>
                 </div>
 
                 <button
                     onClick={sendData}
-                    className="mt-4 px-8 py-4 bg-green-600 hover:bg-green-700 text-white text-lg font-medium rounded-lg shadow-md"
+                    className="btn btn-success btn-lg mt-4"
                 >
                     Send Welcome Data
                 </button>
+
+
             </footer>
         </div>
     );

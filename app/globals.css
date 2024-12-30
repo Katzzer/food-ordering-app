@@ -1,9 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --background: #ffffff;
+  --background: linear-gradient(135deg, #ffbc0d, #2575fc);
   --foreground: #171717;
 }
 
@@ -18,4 +14,5 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
