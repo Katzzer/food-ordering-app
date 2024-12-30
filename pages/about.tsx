@@ -1,25 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import {useDispatch, useSelector} from 'react-redux';
-import { setMessage } from '@/store/globalSlice';
-import {RootState} from "@/store/store";
 
 const About: React.FC = () => {
-    const message = useSelector((state: RootState) => state.global.message);
-    const dispatch = useDispatch();
 
-    const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-        dispatch(setMessage(e.target.value));
-    };
 
     return (
         <div className="p-4 font-sans">
 
-            <h1>{message}</h1>
-
             <h1 className="display-5 text-dark fw-bold">About Us</h1>
-            <input type="text" onChange={changeMessage} value={message}/>
 
             <p className="fs-5 text-secondary mt-3">
                 Welcome to our Food Ordering App! We aim to provide the best food delivery service to satisfy your

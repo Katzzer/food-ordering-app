@@ -2,20 +2,8 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
-import { setMessage } from '@/store/globalSlice';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { RootState } from '@/store/store';
 
 export default function Home() {
-    const message = useSelector((state: RootState) => state.global.message);
-    const dispatch = useDispatch();
-
-    const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-        dispatch(setMessage(e.target.value));
-    };
-
     const sendData = async () => {
         const data = {
             name: "Foodie Heaven",
@@ -42,8 +30,6 @@ export default function Home() {
     return (
         <div className="d-flex flex-column justify-content-between min-vh-100 p-4 pb-5 pt-5">
             <main className="text-center">
-                <h1>{message}</h1>
-                <input type="text" onChange={changeMessage} value={message}/>
                 <h1 className="display-4 fw-bold text-dark">
                     Welcome to Foodie Heaven!
                 </h1>
@@ -51,9 +37,11 @@ export default function Home() {
                     Experience the joy of ordering fresh, delicious dishes delivered right to your door in minutes!
                 </p>
 
-                <button className="btn btn-primary btn-lg mt-4">
+                <Link
+                    href="/menu"
+                    className="btn btn-primary btn-lg mt-4">
                     Start Ordering
-                </button>
+                </Link>
 
                 <Link
                     href="/about"

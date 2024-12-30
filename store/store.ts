@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // Defaults to localStorage for web
 import { combineReducers } from 'redux';
-import { thunk } from 'redux-thunk';
 
 // Example Reducer (you can replace this with your own reducer)
 import globalReducer from './globalSlice';
@@ -24,7 +23,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // Create the Redux store
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Correct
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false, // Avoid serialization issues with redux-persist
+        }),
 });
 
 // Set up Redux Persist
