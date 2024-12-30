@@ -8,13 +8,11 @@ import FoodProps from '@/data/types';
 const Food: React.FC<FoodProps> = ({ name, internalName, description, image, price }) => {
     const dispatch = useDispatch();
 
-    // Get the current quantity of the food item
     const quantity = useSelector((state: RootState) => {
         const orders = state.global?.foodOrders || [];
         return orders.find((order) => order.internalName === internalName)?.quantity || 0;
     });
 
-    // Dispatch actions for increasing or decreasing quantity
     const handleIncrease = () => {
         dispatch(addFoodOrder({ internalName, price }));
     };
@@ -58,9 +56,15 @@ const Food: React.FC<FoodProps> = ({ name, internalName, description, image, pri
     );
 
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center p-5 border rounded-2xl shadow-lg bg-gradient-to-br from-gray-50 to-gray-100">
+        <div
+            className="d-flex flex-column align-items-center justify-content-center p-5 border rounded-2xl shadow-lg bg-gradient-to-br from-gray-50 to-gray-100">
             <h2 className="text-2xl font-bold text-gray-900">{name}</h2>
-            <p className="text-gray-600 mt-2">{description}</p>
+            <p
+                className="text-gray-600 mt-2 text-sm text-center"
+                style={{maxWidth: '400px'}}
+            >
+                {description}
+            </p>
             <Image
                 src={image}
                 alt={name}
@@ -69,7 +73,7 @@ const Food: React.FC<FoodProps> = ({ name, internalName, description, image, pri
                 className="rounded-lg mt-4 shadow-md"
             />
             <p className="text-xl font-semibold text-blue-600 mt-4">${price.toFixed(2)}</p>
-            <QuantityControls />
+            <QuantityControls/>
         </div>
     );
 };

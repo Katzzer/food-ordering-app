@@ -24,8 +24,8 @@ const About: React.FC = () => {
                 <h2 className="h4 text-secondary fw-semibold">Contact Us</h2>
                 <p className="fs-6 text-muted mt-2">
                     Have questions or feedback? Feel free to reach out to us at{' '}
-                    <a href="mailto:support@foodapp.com" className="text-primary text-decoration-underline">
-                        support@foodapp.com
+                    <a href="mailto:info@pavelkostal.com" className="text-primary text-decoration-underline">
+                        info@pavelkostal.com
                     </a>.
                 </p>
             </section>
