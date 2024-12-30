@@ -61,7 +61,6 @@ export const { addFoodOrder, removeFoodOrder } = globalSlice.actions;
 export default globalSlice.reducer;
 
 export const selectTotalFoodItems = (state: { global: GlobalState }) => {
-    debugger
     return state.global.foodOrders.reduce((total, order) => total + order.quantity, 0);
 };
 

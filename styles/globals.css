@@ -15,17 +15,18 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
+  user-select: none;
 }
 
 .app-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Full viewport height */
+  min-height: 100vh;
 }
 
 .app-content {
-  flex-grow: 1; /* Allow main content to expand and fill available space */
-  overflow-y: auto; /* Handle overflow if content exceeds viewport */
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 header {
@@ -33,11 +34,11 @@ header {
 }
 
 footer {
-  flex-shrink: 0; /* Prevents the footer from shrinking */
-  background-color: #f8f9fa; /* Optional: Add a light background for visibility */
-  padding: 10px 20px; /* Optional spacing for the footer content */
-  text-align: center; /* Centers footer text */
-  position: relative; /* Ensure footer doesn't float */
+  flex-shrink: 0;
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  text-align: center;
+  position: relative;
   bottom: 0;
-  width: 100%; /* Ensures footer spans the full width */
+  width: 100%;
 }

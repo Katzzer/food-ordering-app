@@ -11,7 +11,6 @@ export default function Home() {
         };
 
         try {
-            // POST request to the Next.js internal API route
             const response = await axios.post("/api/send-data", data, {
                 headers: {
                     "Content-Type": "application/json",

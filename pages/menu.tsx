@@ -2,15 +2,21 @@ import React from 'react';
 import Food from "@/components/Food";
 import { Foods } from "@/data/foods";
 
-const menu: React.FC = () => {
+const Menu: React.FC = () => {
   return (
-    <div>
+      <div className="d-flex flex-wrap justify-content-center gap-4 p-4">
         {Foods.map((food, index) => (
-
-            <Food key={index} name={food.name} internalName={food.internalName} description={food.description} price={food.price} image={food.image} />
+            <Food
+                key={index}
+                name={food.name}
+                internalName={food.internalName}
+                description={food.description}
+                price={food.price}
+                image={food.image}
+            />
         ))}
-    </div>
+      </div>
   );
 };
 
-export default menu;
+export default Menu;
