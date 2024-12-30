@@ -2,8 +2,15 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import { useAppContext } from '@/context/AppContext';
 
 export default function Home() {
+    const { globalMessage, setGlobalMessage } = useAppContext();
+
+    const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setGlobalMessage(e.target.value);
+    };
+    
     const sendData = async () => {
         const data = {
             name: "Foodie Heaven",
@@ -30,10 +37,12 @@ export default function Home() {
     return (
         <div className="d-flex flex-column justify-content-between min-vh-100 p-4 pb-5 pt-5">
             <main className="text-center">
+                <h1>{globalMessage}</h1>
+                <input type="text" onChange={changeMessage}/>
                 <h1 className="display-4 fw-bold text-dark">
                     Welcome to Foodie Heaven!
                 </h1>
-                <p className="lead text-muted mx-auto" style={{ maxWidth: "600px" }}>
+                <p className="lead text-muted mx-auto" style={{maxWidth: "600px"}}>
                     Experience the joy of ordering fresh, delicious dishes delivered right to your door in minutes!
                 </p>
 
@@ -45,7 +54,7 @@ export default function Home() {
                     href="/about"
                     className="btn btn-success btn-lg mt-4"
                 >
-                    Go to Home Page
+                    Go to About Page
                 </Link>
 
             </main>

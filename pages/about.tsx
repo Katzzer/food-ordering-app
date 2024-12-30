@@ -1,10 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
+import { useAppContext } from '@/context/AppContext';
 
 const About: React.FC = () => {
+    const { globalMessage, setGlobalMessage } = useAppContext();
+
+    const changeMessage = () => {
+        setGlobalMessage('This is the About Page!');
+    };
+
     return (
         <div className="p-4 font-sans">
             <h1 className="display-5 text-dark fw-bold">About Us</h1>
+            <h1>{globalMessage}</h1>
+
+            <button className="btn btn-primary" onClick={changeMessage}>
+                Change Message
+            </button>
+
             <p className="fs-5 text-secondary mt-3">
                 Welcome to our Food Ordering App! We aim to provide the best food delivery service to satisfy your cravings.
             </p>
