@@ -1,30 +1,35 @@
 import React from 'react';
 import Link from 'next/link';
-import { useAppContext } from '@/context/AppContext';
+import {useDispatch, useSelector} from 'react-redux';
+import { setMessage } from '@/store/globalSlice';
+import {RootState} from "@/store/store";
 
 const About: React.FC = () => {
-    const { globalMessage, setGlobalMessage } = useAppContext();
+    const message = useSelector((state: RootState) => state.global.message);
+    const dispatch = useDispatch();
 
-    const changeMessage = () => {
-        setGlobalMessage('This is the About Page!');
+    const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value);
+        dispatch(setMessage(e.target.value));
     };
 
     return (
         <div className="p-4 font-sans">
-            <h1 className="display-5 text-dark fw-bold">About Us</h1>
-            <h1>{globalMessage}</h1>
 
-            <button className="btn btn-primary" onClick={changeMessage}>
-                Change Message
-            </button>
+            <h1>{message}</h1>
+
+            <h1 className="display-5 text-dark fw-bold">About Us</h1>
+            <input type="text" onChange={changeMessage} value={message}/>
 
             <p className="fs-5 text-secondary mt-3">
-                Welcome to our Food Ordering App! We aim to provide the best food delivery service to satisfy your cravings.
+                Welcome to our Food Ordering App! We aim to provide the best food delivery service to satisfy your
+                cravings.
             </p>
             <section className="mt-4">
                 <h2 className="h4 text-secondary fw-semibold">Our Mission</h2>
                 <p className="fs-6 text-muted mt-2">
-                    Our mission is to connect people with their favorite food, delivered quickly and conveniently to their doorstep.
+                    Our mission is to connect people with their favorite food, delivered quickly and conveniently to
+                    their doorstep.
                 </p>
             </section>
             <section className="mt-4">
