@@ -1,9 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// Defining the initial state for Redux
 interface FoodOrder {
     foodName: string;
     quantity: number;
+    price: number;
+}
+
+interface PayloadProps {
+    foodName: string;
+    price: number;
 }
 
 interface GlobalState {
@@ -18,37 +23,34 @@ const globalSlice = createSlice({
     name: 'global',
     initialState,
     reducers: {
-        // Add Food Order Reducer
-        addFoodOrder(state, action: PayloadAction<string>) {
-            // Ensure foodOrders is initialized
+        addFoodOrder(state, action: PayloadAction<PayloadProps>) {
+
             if (!state.foodOrders) {
-                state.foodOrders = []; // Safeguard against undefined foodOrders
+                state.foodOrders = [];
             }
             const existingOrder = state.foodOrders.find(
-                (order) => order.foodName === action.payload
+                (order) => order.foodName === action.payload.foodName
             );
             if (existingOrder) {
-                existingOrder.quantity += 1; // Increment quantity if item exists
+                existingOrder.quantity += 1;
             } else {
-                state.foodOrders.push({ foodName: action.payload, quantity: 1 }); // Add new food item
+                state.foodOrders.push({ foodName: action.payload.foodName, quantity: 1, price: action.payload.price }); // Add new food item
             }
         },
 
-        // Remove Food Order Reducer
-        removeFoodOrder(state, action: PayloadAction<string>) {
-            // Ensure foodOrders is initialized
+        removeFoodOrder(state, action: PayloadAction<PayloadProps>) {
             if (!state.foodOrders) {
-                state.foodOrders = []; // Safeguard against undefined foodOrders
+                state.foodOrders = [];
             }
             const existingOrder = state.foodOrders.find(
-                (order) => order.foodName === action.payload
+                (order) => order.foodName === action.payload.foodName
             );
             if (existingOrder && existingOrder.quantity > 1) {
                 existingOrder.quantity -= 1; // Decrement quantity if quantity is greater than 1
             } else {
                 state.foodOrders = state.foodOrders.filter(
-                    (order) => order.foodName !== action.payload
-                ); // Remove the item if quantity becomes 0
+                    (order) => order.foodName !== action.payload.foodName
+                );
             }
         },
     },
@@ -57,3 +59,16 @@ const globalSlice = createSlice({
 export const { addFoodOrder, removeFoodOrder } = globalSlice.actions;
 
 export default globalSlice.reducer;
+
+export const selectTotalFoodItems = (state: { global: GlobalState }) => {
+    debugger
+    return state.global.foodOrders.reduce((total, order) => total + order.quantity, 0);
+};
+
+export const selectTotalPrice = (state: { global: GlobalState }) => {
+    return state.global.foodOrders.reduce((total, order) => {
+        const quantity = order.quantity || 0;
+        const price = order.price || 0;
+        return total + quantity * price;
+    }, 0);
+};

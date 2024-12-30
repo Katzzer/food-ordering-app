@@ -19,11 +19,11 @@ const Food: React.FC<FoodProps> = ({ foodName, description, price }) => {
     });
 
     const handleIncrease = () => {
-        dispatch(addFoodOrder(foodName));
+        dispatch(addFoodOrder({foodName, price}));
     };
 
     const handleDecrease = () => {
-        dispatch(removeFoodOrder(foodName));
+        dispatch(removeFoodOrder({foodName, price}));
     };
 
     return (

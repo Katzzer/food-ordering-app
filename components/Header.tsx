@@ -1,24 +1,17 @@
 import React from 'react';
-import Link from "next/link";
+import { useSelector } from 'react-redux';
+import { selectTotalFoodItems, selectTotalPrice } from '@/store/globalSlice';
 
-const Header: React.FC = () => {
-    const totalItems = 20;
+const Header = () => {
+    const totalItems = useSelector(selectTotalFoodItems); // Total quantity of items
+    const totalPrice = useSelector(selectTotalPrice);     // Total price of all items
 
     return (
-        <header className="bg-dark text-white py-3">
-            <div className="container d-flex justify-content-between align-items-center">
-                <div className="d-flex align-items-center">
-                    <Link href="/" className="text-white text-decoration-none fs-4 fw-bold">
-                        MyFoodApp
-                    </Link>
-                </div>
-
-                <div className="d-flex align-items-center">
-                    <span className="me-2">Total Items:</span>
-                    <span className="badge bg-light text-primary px-3 py-2 fs-6">
-                    {totalItems}
-                </span>
-                </div>
+        <header className="d-flex justify-content-between align-items-center p-3 bg-dark py-3">
+            <h1 className="text-light">Foodie Heaven</h1>
+            <div className="text-light">
+                <span className="fw-bold">Total Items:</span> {totalItems} <br />
+                <span className="fw-bold">Total Price:</span> ${totalPrice.toFixed(2)}
             </div>
         </header>
     );
