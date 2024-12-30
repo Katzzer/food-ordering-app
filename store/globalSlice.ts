@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface FoodOrder {
-    foodName: string;
-    quantity: number;
+interface PayloadProps {
+    internalName: string;
     price: number;
 }
 
-interface PayloadProps {
-    foodName: string;
+interface FoodOrder {
+    internalName: string;
+    quantity: number;
     price: number;
 }
 
@@ -29,12 +29,12 @@ const globalSlice = createSlice({
                 state.foodOrders = [];
             }
             const existingOrder = state.foodOrders.find(
-                (order) => order.foodName === action.payload.foodName
+                (order) => order.internalName === action.payload.internalName
             );
             if (existingOrder) {
                 existingOrder.quantity += 1;
             } else {
-                state.foodOrders.push({ foodName: action.payload.foodName, quantity: 1, price: action.payload.price }); // Add new food item
+                state.foodOrders.push({ internalName: action.payload.internalName, quantity: 1, price: action.payload.price }); // Add new food item
             }
         },
 
@@ -43,13 +43,13 @@ const globalSlice = createSlice({
                 state.foodOrders = [];
             }
             const existingOrder = state.foodOrders.find(
-                (order) => order.foodName === action.payload.foodName
+                (order) => order.internalName === action.payload.internalName
             );
             if (existingOrder && existingOrder.quantity > 1) {
                 existingOrder.quantity -= 1; // Decrement quantity if quantity is greater than 1
             } else {
                 state.foodOrders = state.foodOrders.filter(
-                    (order) => order.foodName !== action.payload.foodName
+                    (order) => order.internalName !== action.payload.internalName
                 );
             }
         },

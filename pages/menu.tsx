@@ -1,15 +1,14 @@
 import React from 'react';
 import Food from "@/components/Food";
+import { Foods } from "@/data/foods";
 
 const menu: React.FC = () => {
   return (
     <div>
-      <Food foodName={"Big Mac"} description={"Super burger"} price={100}/>
-      <Food foodName={"Cheese Burger"} description={"Cheese Burger"} price={100}/>
-      <Food foodName={"Cola"} description={"Coca cola"} price={60}/>
-      <Food foodName={"Fries"} description={"Fries"} price={60}/>
-      <Food foodName={"Cake"} description={"Cake"} price={60}/>
-      <Food foodName={"Cafe"} description={"Cafe"} price={60}/>
+        {Foods.map((food, index) => (
+
+            <Food key={index} name={food.name} internalName={food.internalName} description={food.description} price={food.price} image={food.image} />
+        ))}
     </div>
   );
 };

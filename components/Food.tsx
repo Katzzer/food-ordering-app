@@ -1,35 +1,31 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFoodOrder, removeFoodOrder } from '@/store/globalSlice'; // Adjust the import path
-import { RootState } from '@/store/store'; // Import RootState type
+import { RootState } from '@/store/store';
+import FoodProps from "@/data/types";
+import Image from "next/image"; // Import RootState type
 
-interface FoodProps {
-    foodName: string;
-    description: string;
-    price: number;
-}
-
-const Food: React.FC<FoodProps> = ({ foodName, description, price }) => {
+const Food: React.FC<FoodProps> = ({ name, internalName, description, image, price }) => {
     const dispatch = useDispatch();
 
-    // Updated: Safely handle undefined state
     const quantity = useSelector((state: RootState) => {
-        const orders = state.global?.foodOrders || []; // Ensure foodOrders exists in state
-        return orders.find((order) => order.foodName === foodName)?.quantity || 0;
+        const orders = state.global?.foodOrders || [];
+        return orders.find((order) => order.internalName === internalName)?.quantity || 0;
     });
 
     const handleIncrease = () => {
-        dispatch(addFoodOrder({foodName, price}));
+        dispatch(addFoodOrder({internalName, price}));
     };
 
     const handleDecrease = () => {
-        dispatch(removeFoodOrder({foodName, price}));
+        dispatch(removeFoodOrder({internalName, price}));
     };
 
     return (
         <div className="p-4 border rounded-md shadow-md w-80">
-            <h2 className="text-xl font-bold">{foodName}</h2>
+            <h2 className="text-xl font-bold">{name}</h2>
             <p className="text-gray-700 mt-2">{description}</p>
+            <Image src={image} alt={name} width={200} height={150}/>
             <p className="text-lg font-semibold text-blue-500 mt-2">${price.toFixed(2)}</p>
 
             <div className="flex items-center mt-4">
