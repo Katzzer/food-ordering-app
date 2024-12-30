@@ -23,7 +23,21 @@ body {
   min-height: 100vh; /* Full viewport height */
 }
 
-/* Make the main content grow to fill the space */
 .app-content {
-  flex-grow: 1; /* Ensures the main content area takes up remaining space */
+  flex-grow: 1; /* Allow main content to expand and fill available space */
+  overflow-y: auto; /* Handle overflow if content exceeds viewport */
+}
+
+header {
+  flex-shrink: 0;
+}
+
+footer {
+  flex-shrink: 0; /* Prevents the footer from shrinking */
+  background-color: #f8f9fa; /* Optional: Add a light background for visibility */
+  padding: 10px 20px; /* Optional spacing for the footer content */
+  text-align: center; /* Centers footer text */
+  position: relative; /* Ensure footer doesn't float */
+  bottom: 0;
+  width: 100%; /* Ensures footer spans the full width */
 }

@@ -28,7 +28,7 @@ export default function Home() {
     };
 
     return (
-        <div className="d-flex flex-column justify-content-between min-vh-100 p-4 pb-5 pt-5">
+        <div className="d-flex flex-column">
             <main className="text-center">
                 <h1 className="display-4 fw-bold text-dark">
                     Welcome to Foodie Heaven!
