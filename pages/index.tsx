@@ -43,20 +43,6 @@ export default function Home() {
                     Start Ordering
                 </Link>
 
-                <Link
-                    href="/about"
-                    className="btn btn-success btn-lg mt-4"
-                >
-                    Go to About Page
-                </Link>
-
-            </main>
-
-            <footer className="text-center mt-5">
-                <div>
-                    Created by <a href="https://www.pavelkostal.com"><u>Pavel Kostal</u></a>
-                </div>
-
                 <button
                     onClick={sendData}
                     className="btn btn-success btn-lg mt-4"
@@ -64,8 +50,8 @@ export default function Home() {
                     Send Welcome Data
                 </button>
 
+            </main>
 
-            </footer>
         </div>
     );
 }

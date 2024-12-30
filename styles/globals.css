@@ -16,3 +16,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
 }
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
+/* Make the main content grow to fill the space */
+.app-content {
+  flex-grow: 1; /* Ensures the main content area takes up remaining space */
+}
