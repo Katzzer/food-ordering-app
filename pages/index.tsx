@@ -11,16 +11,17 @@ export default function Home() {
         };
 
         try {
-            const response = await axios.post("https://httpbin.org/post", data, {
+            // POST request to the Next.js internal API route
+            const response = await axios.post("/api/send-data", data, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
 
-            if (response.status === 200 || response.status === 201) {
-                console.log("Data sent successfully!", response.data);
+            if (response.status === 200) {
+                console.log("Data sent successfully via Next.js API route!", response.data);
             } else {
-                console.error("Failed to send data.", response.status);
+                console.error("Failed to send data via Next.js API route.", response.status);
             }
         } catch (error) {
             console.error("Error:", error);
