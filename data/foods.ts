@@ -1,4 +1,4 @@
-import FoodProps from "@/data/types";
+import {FoodProps} from "@/data/types";
 
 export const BIG_MAC: FoodProps = {
     name: "Big Mac",

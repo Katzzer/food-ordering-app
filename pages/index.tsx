@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from 'react-redux';
-import FoodProps from "@/data/types";
+import {FoodProps} from "@/data/types";
 
 const Home: React.FC = () => {
     // Retrieve food orders from the Redux store
