@@ -2,29 +2,32 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import { useSelector } from 'react-redux';
+import FoodProps from "@/data/types";
 
-export default function Home() {
-    const sendData = async () => {
-        const data = {
-            name: "Foodie Heaven",
-            message: "Welcome to our food ordering app!",
-        };
+const Home: React.FC = () => {
+    // Retrieve food orders from the Redux store
+    const foodOrders = useSelector(
+        (state: { global: { foodOrders: FoodProps[] } }) => state.global.foodOrders
+    );
 
+    // Separate the sendDataToBackend function
+    const sendDataToBackend = async (foodOrders: FoodProps[]) => {
         try {
-            const response = await axios.post("/api/send-data", data, {
+            const response = await axios.post('/api/save-order', foodOrders, {
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json'
                 },
             });
-
-            if (response.status === 200) {
-                console.log("Data sent successfully via Next.js API route!", response.data);
-            } else {
-                console.error("Failed to send data via Next.js API route.", response.status);
-            }
+            console.log('Order saved successfully!', response.data);
         } catch (error) {
-            console.error("Error:", error);
+            console.error('Error saving order:', error);
         }
+    };
+
+    // Function to handle send data button click
+    const handleSendData = () => {
+        sendDataToBackend(foodOrders);
     };
 
     return (
@@ -33,25 +36,26 @@ export default function Home() {
                 <h1 className="display-4 fw-bold text-dark">
                     Welcome to Foodie Heaven!
                 </h1>
-                <p className="lead text-muted mx-auto" style={{maxWidth: "600px"}}>
+                <p
+                    className="lead text-muted mx-auto"
+                    style={{ maxWidth: "600px" }}
+                >
                     Experience the joy of ordering fresh, delicious dishes delivered right to your door in minutes!
                 </p>
 
-                <Link
-                    href="/menu"
-                    className="btn btn-primary btn-lg mt-4">
+                <Link href="/menu" className="btn btn-primary btn-lg mt-4">
                     Start Ordering
                 </Link>
 
                 <button
-                    onClick={sendData}
+                    onClick={handleSendData}
                     className="btn btn-success btn-lg mt-4"
                 >
-                    Send Welcome Data
+                    Send Order Data (testing)
                 </button>
-
             </main>
-
         </div>
     );
-}
+};
+
+export default Home;

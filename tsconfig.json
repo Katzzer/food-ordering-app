@@ -13,6 +13,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "sourceMap": true,          // Allows emitting .map files for debugging
+    "inlineSourceMap": false,   // Source maps should be external instead of inline
+    "inlineSources": false,       // Embed the sources within the source map for debug info
     "plugins": [
       {
         "name": "next"

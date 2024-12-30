@@ -1,4 +1,4 @@
-type FoodProps = {
+export type FoodProps = {
     name: string;
     internalName: string;
     description: string;
@@ -6,4 +6,8 @@ type FoodProps = {
     price: number;
 }
 
-export default FoodProps;
+export type FoodOrder = {
+    internalName: string;
+    quantity: number;
+    price: number;
+}

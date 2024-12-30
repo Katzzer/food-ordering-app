@@ -1,18 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {FoodOrder} from "@/data/types";
 
-interface PayloadProps {
+type PayloadProps = {
     internalName: string;
-    price: number;
-}
-
-interface FoodOrder {
-    internalName: string;
-    quantity: number;
     price: number;
 }
 
 interface GlobalState {
-    foodOrders: FoodOrder[]; // Store a list of ordered food items
+    foodOrders: FoodOrder[];
 }
 
 const initialState: GlobalState = {
