@@ -57,7 +57,7 @@ const Food: React.FC<FoodProps> = ({ name, internalName, description, image, pri
 
     return (
         <div
-            className="d-flex flex-column align-items-center justify-content-center p-5 border rounded-2xl shadow-lg bg-gradient-to-br from-gray-50 to-gray-100">
+            className="d-flex flex-column align-items-center justify-content-center p-5 border rounded-2xl shadow-lg bg-white from-gray-50 to-gray-100">
             <h2 className="text-2xl font-bold text-gray-900">{name}</h2>
             <p
                 className="text-gray-600 mt-2 text-sm text-center"
