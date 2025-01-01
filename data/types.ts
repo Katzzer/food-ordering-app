@@ -8,6 +8,7 @@ export type FoodProps = {
 
 export type FoodOrder = {
     internalName: string;
+    name: string;
     quantity: number;
     price: number;
 }

@@ -1,43 +1,9 @@
 "use client";
-import axios from "axios";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from 'react-redux';
-import {FoodProps} from "@/data/types";
 
-type Payload = {
-    name: string;
-    address: string;
-    orders: FoodProps[];
-};
 
 const Home: React.FC = () => {
-    const foodOrders = useSelector(
-        (state: { global: { foodOrders: FoodProps[] } }) => state.global.foodOrders
-    );
-
-    const sendDataToBackend = async (payload: Payload) => {
-        try {
-            const response = await axios.post('/api/save-order', payload, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-            console.log('Order saved successfully!', response.data);
-        } catch (error) {
-            console.error('Error saving order:', error);
-        }
-    };
-
-    const handleSendData = () => {
-        const payload = {
-            name: "John Doe", // Dummy name
-            address: "123 Main Street, Anytown, Country", // Dummy address
-            orders: foodOrders // List of food orders from Redux store
-        };
-
-        sendDataToBackend(payload);
-    };
 
     return (
         <div className="d-flex flex-column">
@@ -53,15 +19,9 @@ const Home: React.FC = () => {
                 </p>
 
                 <Link href="/menu" className="btn btn-primary btn-lg mt-4">
-                    Start Ordering
+                    Order your food 😊
                 </Link>
 
-                <button
-                    onClick={handleSendData}
-                    className="btn btn-success btn-lg mt-4"
-                >
-                    Send Order Data (testing)
-                </button>
             </main>
         </div>
     );

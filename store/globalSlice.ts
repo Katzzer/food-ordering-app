@@ -3,6 +3,7 @@ import {FoodOrder} from "@/data/types";
 
 type PayloadProps = {
     internalName: string;
+    name: string;
     price: number;
 }
 
@@ -29,7 +30,7 @@ const globalSlice = createSlice({
             if (existingOrder) {
                 existingOrder.quantity += 1;
             } else {
-                state.foodOrders.push({ internalName: action.payload.internalName, quantity: 1, price: action.payload.price }); // Add new food item
+                state.foodOrders.push({ internalName: action.payload.internalName, name: action.payload.name, quantity: 1, price: action.payload.price });
             }
         },
 
@@ -48,10 +49,15 @@ const globalSlice = createSlice({
                 );
             }
         },
+
+        clearFoodOrders(state) {
+            state.foodOrders = []; // Clears all items
+        },
+
     },
 });
 
-export const { addFoodOrder, removeFoodOrder } = globalSlice.actions;
+export const { addFoodOrder, removeFoodOrder, clearFoodOrders } = globalSlice.actions;
 
 export default globalSlice.reducer;
 

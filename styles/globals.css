@@ -42,3 +42,12 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+.custom-hover-link {
+  color: white; /* Default color */
+  text-decoration: none;
+}
+
+.custom-hover-link:hover {
+  color: black; /* Hover color */
+}

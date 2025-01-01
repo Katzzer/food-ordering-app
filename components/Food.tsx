@@ -14,11 +14,11 @@ const Food: React.FC<FoodProps> = ({ name, internalName, description, image, pri
     });
 
     const handleIncrease = () => {
-        dispatch(addFoodOrder({ internalName, price }));
+        dispatch(addFoodOrder({ internalName, name, price }));
     };
 
     const handleDecrease = () => {
-        dispatch(removeFoodOrder({ internalName, price }));
+        dispatch(removeFoodOrder({ internalName, name, price }));
     };
 
     const QuantityControls = () => (

@@ -10,13 +10,13 @@ const PARTITION_KEY = 'food';
 type OrderData = {
     name: string;
     address: string;
+    phone: string; // Added phone field
     partitionKey: string;
-    time: string
+    time: string;
     orderItems: FoodOrder[];
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
     if (req.method === 'POST') {
         await handlePostRequest(req, res);
     } else {
@@ -25,23 +25,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
-    const { name, address, orders } = req.body;
+    const { name, address, phone, orders } = req.body; // Destructure phone from request body
 
-    if (!name || !address || !orders || !Array.isArray(orders)) {
-        return res.status(400).json({ error: 'Invalid input. Missing name, address, or orders.' });
+    // Validate phone along with other inputs
+    if (!name || !address || !phone || !orders || !Array.isArray(orders)) {
+        return res.status(400).json({ error: 'Invalid input. Missing name, address, phone, or orders.' });
     }
 
-    console.log("Request received for:", { name, address });
+    console.log("Request received for:", { name, address, phone });
 
+    // Update the orders with the correct prices from the menu
     const updatedOrders = updateOrderPrices(orders, Foods);
 
+    // Add the phone number to the complete order data
     const completeOrderData = {
         name,
         address,
+        phone,
         partitionKey: PARTITION_KEY,
         time: new Date().toISOString(),
         orderItems: updatedOrders,
-    }
+    };
 
     try {
         const response = await sendOrderToAPI(completeOrderData); // Send the updated object
