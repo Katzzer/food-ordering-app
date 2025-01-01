@@ -5,16 +5,20 @@ import React from "react";
 import { useSelector } from 'react-redux';
 import {FoodProps} from "@/data/types";
 
+type Payload = {
+    name: string;
+    address: string;
+    orders: FoodProps[];
+};
+
 const Home: React.FC = () => {
-    // Retrieve food orders from the Redux store
     const foodOrders = useSelector(
         (state: { global: { foodOrders: FoodProps[] } }) => state.global.foodOrders
     );
 
-    // Separate the sendDataToBackend function
-    const sendDataToBackend = async (foodOrders: FoodProps[]) => {
+    const sendDataToBackend = async (payload: Payload) => {
         try {
-            const response = await axios.post('/api/save-order', foodOrders, {
+            const response = await axios.post('/api/save-order', payload, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -25,9 +29,14 @@ const Home: React.FC = () => {
         }
     };
 
-    // Function to handle send data button click
     const handleSendData = () => {
-        sendDataToBackend(foodOrders);
+        const payload = {
+            name: "John Doe", // Dummy name
+            address: "123 Main Street, Anytown, Country", // Dummy address
+            orders: foodOrders // List of food orders from Redux store
+        };
+
+        sendDataToBackend(payload);
     };
 
     return (
