@@ -1,20 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import { Foods } from '@/data/foods';
-import { FoodOrder } from '@/data/types';
+import {FoodOrder, OrderData} from '@/data/types';
 
 const SUBSCRIPTION_KEY = process.env.AZURE_SUBSCRIPTION_KEY || '4793763d0552436db7b68f495039d637'; // TODO: Replace with actual environment variable.
 const API_ENDPOINT = process.env.AZURE_API_ENDPOINT || 'https://food-ordering-app.azure-api.net/food-ordering-app-fce/SaveOrderFunction';
 const PARTITION_KEY = 'food';
-
-type OrderData = {
-    name: string;
-    address: string;
-    phone: string; // Added phone field
-    partitionKey: string;
-    time: string;
-    orderItems: FoodOrder[];
-};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
@@ -25,19 +16,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
-    const { name, address, phone, orders } = req.body; // Destructure phone from request body
+    const { name, address, phone, orders } = req.body;
 
-    // Validate phone along with other inputs
     if (!name || !address || !phone || !orders || !Array.isArray(orders)) {
         return res.status(400).json({ error: 'Invalid input. Missing name, address, phone, or orders.' });
     }
 
     console.log("Request received for:", { name, address, phone });
 
-    // Update the orders with the correct prices from the menu
     const updatedOrders = updateOrderPrices(orders, Foods);
 
-    // Add the phone number to the complete order data
     const completeOrderData = {
         name,
         address,
