@@ -1,26 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // Defaults to localStorage for web
+import storageSession from 'redux-persist/lib/storage/session';
 import { combineReducers } from 'redux';
 
-// Example Reducer (you can replace this with your own reducer)
 import globalReducer from './globalSlice';
 
-// Combine multiple reducers (optional)
 const rootReducer = combineReducers({
     global: globalReducer,
 });
 
-// Redux Persist configuration
 const persistConfig = {
-    key: 'root', // Key for storage
-    storage,     // Storage type (localStorage)
+    key: 'root',
+    storage: storageSession,
 };
 
-// Create a persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Create the Redux store
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
@@ -29,9 +24,7 @@ export const store = configureStore({
         }),
 });
 
-// Set up Redux Persist
 export const persistor = persistStore(store);
 
-// Types for TypeScript
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

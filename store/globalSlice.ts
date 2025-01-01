@@ -1,18 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {FoodOrder} from "@/data/types";
+import { FoodOrder } from "@/data/types";
 
 type PayloadProps = {
     internalName: string;
     name: string;
     price: number;
-}
+};
 
 interface GlobalState {
     foodOrders: FoodOrder[];
 }
 
+// Load initial state from sessionStorage
 const initialState: GlobalState = {
-    foodOrders: [],
+    foodOrders: typeof window !== 'undefined' && sessionStorage.getItem('foodOrders')
+        ? JSON.parse(sessionStorage.getItem('foodOrders') || '[]') // Parse saved orders
+        : [], // Default to an empty array if no data is in sessionStorage
 };
 
 const globalSlice = createSlice({
@@ -20,40 +23,55 @@ const globalSlice = createSlice({
     initialState,
     reducers: {
         addFoodOrder(state, action: PayloadAction<PayloadProps>) {
-
             if (!state.foodOrders) {
                 state.foodOrders = [];
             }
+
             const existingOrder = state.foodOrders.find(
                 (order) => order.internalName === action.payload.internalName
             );
+
             if (existingOrder) {
                 existingOrder.quantity += 1;
             } else {
-                state.foodOrders.push({ internalName: action.payload.internalName, name: action.payload.name, quantity: 1, price: action.payload.price });
+                state.foodOrders.push({
+                    internalName: action.payload.internalName,
+                    name: action.payload.name,
+                    quantity: 1,
+                    price: action.payload.price,
+                });
             }
+
+            // Save to Session Storage only
+            sessionStorage.setItem('foodOrders', JSON.stringify(state.foodOrders));
         },
 
         removeFoodOrder(state, action: PayloadAction<PayloadProps>) {
             if (!state.foodOrders) {
                 state.foodOrders = [];
             }
+
             const existingOrder = state.foodOrders.find(
                 (order) => order.internalName === action.payload.internalName
             );
+
             if (existingOrder && existingOrder.quantity > 1) {
-                existingOrder.quantity -= 1; // Decrement quantity if quantity is greater than 1
+                existingOrder.quantity -= 1;
             } else {
                 state.foodOrders = state.foodOrders.filter(
                     (order) => order.internalName !== action.payload.internalName
                 );
             }
+
+            sessionStorage.setItem('foodOrders', JSON.stringify(state.foodOrders));
         },
 
         clearFoodOrders(state) {
-            state.foodOrders = []; // Clears all items
-        },
+            state.foodOrders = [];
 
+            // Clear from Session Storage only
+            sessionStorage.removeItem('foodOrders');
+        },
     },
 });
 

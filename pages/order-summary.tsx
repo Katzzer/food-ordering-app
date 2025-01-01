@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -24,6 +24,35 @@ const OrderSummary: React.FC = () => {
     );
     const dispatch = useDispatch();
     const router = useRouter();
+
+    useEffect(() => {
+        const savedName = sessionStorage.getItem('name');
+        const savedAddress = sessionStorage.getItem('address');
+        const savedPhone = sessionStorage.getItem('phone');
+
+        if (savedName) setName(savedName);
+        if (savedAddress) setAddress(savedAddress);
+        if (savedPhone) setPhone(savedPhone);
+    }, []);
+
+    // Handle input changes and save to sessionStorage
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setName(value);
+        sessionStorage.setItem('name', value);
+    };
+
+    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setAddress(value);
+        sessionStorage.setItem('address', value);
+    };
+
+    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setPhone(value);
+        sessionStorage.setItem('phone', value);
+    };
 
     const sendDataToBackend = async (payload: Payload) => {
         try {
@@ -57,6 +86,9 @@ const OrderSummary: React.FC = () => {
 
         setTimeout(() => {
             dispatch(clearFoodOrders());
+            sessionStorage.removeItem('name');
+            sessionStorage.removeItem('address');
+            sessionStorage.removeItem('phone');
             router.push('/');
         }, 3000);
     };
@@ -67,7 +99,6 @@ const OrderSummary: React.FC = () => {
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center py-4">
-            {/* Order Summary Card */}
             <div className="w-75 bg-light p-5 rounded shadow mb-4">
                 <h2 className="text-center mb-4">Order Summary</h2>
 
@@ -112,7 +143,7 @@ const OrderSummary: React.FC = () => {
                         id="name"
                         className="form-control"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleNameChange}
                     />
                 </div>
                 <div className="mb-3">
@@ -122,7 +153,7 @@ const OrderSummary: React.FC = () => {
                         id="address"
                         className="form-control"
                         value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        onChange={handleAddressChange}
                     />
                 </div>
                 <div className="mb-3">
@@ -132,7 +163,7 @@ const OrderSummary: React.FC = () => {
                         id="phone"
                         className="form-control"
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={handlePhoneChange}
                     />
                 </div>
 
@@ -153,35 +184,27 @@ const OrderSummary: React.FC = () => {
                 </Link>
             </div>
 
+            {/* Modal Implementation */}
             {showModal && (
-                <div
-                    className="modal d-block"
-                    tabIndex={-1}
-                    style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dimmed background
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        zIndex: 1050, // High z-index to layer above everything
-                    }}
-                >
+                <div className="modal show d-block" tabIndex={-1}>
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Order Placed!</h5>
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    onClick={() => setShowModal(false)}
-                                ></button>
+                                <h5 className="modal-title">Order Submitted</h5>
+                                <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
                             </div>
                             <div className="modal-body">
-                                <p>Your order has been placed successfully! You will be redirected to the home page shortly.</p>
+                                <p>Your order has been successfully submitted!</p>
+                                <p>You will be redirected shortly...</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={() => setShowModal(false)}
+                                >
+                                    Close
+                                </button>
                             </div>
                         </div>
                     </div>
