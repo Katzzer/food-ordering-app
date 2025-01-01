@@ -16,7 +16,7 @@ type Payload = {
 const OrderSummary: React.FC = () => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
-    const [phone, setPhone] = useState(''); // Added phone state
+    const [phone, setPhone] = useState('');
     const [showModal, setShowModal] = useState(false);
 
     const foodOrders = useSelector(
@@ -66,8 +66,9 @@ const OrderSummary: React.FC = () => {
     }, 0);
 
     return (
-        <div className="d-flex justify-content-center py-4">
-            <div className="w-75 bg-light p-5 rounded shadow">
+        <div className="d-flex flex-column align-items-center justify-content-center py-4">
+            {/* Order Summary Card */}
+            <div className="w-75 bg-light p-5 rounded shadow mb-4">
                 <h2 className="text-center mb-4">Order Summary</h2>
 
                 <div className="my-4">
@@ -104,68 +105,83 @@ const OrderSummary: React.FC = () => {
                     )}
                 </div>
 
-                {/* Input for Name */}
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input
-                        id="name"
                         type="text"
+                        id="name"
                         className="form-control"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Enter your name"
                     />
                 </div>
-
-                {/* Input for Address */}
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label">Address</label>
                     <input
-                        id="address"
                         type="text"
+                        id="address"
                         className="form-control"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        placeholder="Enter your address"
                     />
                 </div>
-
-                {/* Input for Phone */}
                 <div className="mb-3">
-                    <label htmlFor="phone" className="form-label">Phone Number</label>
+                    <label htmlFor="phone" className="form-label">Phone</label>
                     <input
-                        id="phone"
                         type="text"
+                        id="phone"
                         className="form-control"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Enter your phone number"
                     />
                 </div>
 
-                <div className="text-center">
+                <div className="text-center mt-4">
                     <button
+                        className="btn btn-success btn-lg"
+                        disabled={foodOrders.length === 0}
                         onClick={handleSendData}
-                        className="btn btn-success btn-lg mt-4 me-3"
-                        disabled={!name.trim() || !address.trim() || !phone.trim() || foodOrders.length === 0}
                     >
                         Send Order
                     </button>
-                    <Link href="/menu" className="btn btn-primary btn-lg mt-4">
-                        Order More Food
-                    </Link>
                 </div>
             </div>
 
+            <div className="text-center mt-3">
+                <Link href="/menu" className="btn btn-primary btn-lg">
+                    Order More Food
+                </Link>
+            </div>
+
             {showModal && (
-                <div className="modal d-block" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                <div
+                    className="modal d-block"
+                    tabIndex={-1}
+                    style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dimmed background
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        zIndex: 1050, // High z-index to layer above everything
+                    }}
+                >
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Thank You!</h5>
+                                <h5 className="modal-title">Order Placed!</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setShowModal(false)}
+                                ></button>
                             </div>
                             <div className="modal-body">
-                                <p>Your order has been successfully sent. You will be redirected to the home page shortly.</p>
+                                <p>Your order has been placed successfully! You will be redirected to the home page shortly.</p>
                             </div>
                         </div>
                     </div>

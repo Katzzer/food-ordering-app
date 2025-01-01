@@ -25,7 +25,6 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
 
         console.log("Orders retrieved successfully:", response.data);
 
-        // Respond with the orders from the API
         res.status(200).json(response.data);
     } catch (error) {
         handleError(res, error);

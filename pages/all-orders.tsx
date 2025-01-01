@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { OrderData } from "@/data/types";
+import Link from "next/link";
 
 const AllOrders: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -135,6 +136,13 @@ const AllOrders: React.FC = () => {
                             </table>
                         </div>
                     )}
+
+                    {/* Added Order More Food Button Here */}
+                    <div className="text-center mt-3">
+                        <Link href="/menu" className="btn btn-primary btn-lg">
+                            Order More Food
+                        </Link>
+                    </div>
                 </>
             )}
         </div>
