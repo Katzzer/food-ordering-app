@@ -29,20 +29,6 @@ body {
   overflow-y: auto;
 }
 
-header {
-  flex-shrink: 0;
-}
-
-footer {
-  flex-shrink: 0;
-  background-color: #f8f9fa;
-  padding: 10px 20px;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
 .custom-hover-link {
   color: white;
   text-decoration: none;

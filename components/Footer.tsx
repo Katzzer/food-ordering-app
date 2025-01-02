@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from "next/link";
+import "@/styles/footer.scss"
 
 const Footer: React.FC = () => {
     const currentYear = new Date().getFullYear(); // Automatically get current year

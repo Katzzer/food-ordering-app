@@ -44,7 +44,6 @@ const OrderSummary: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Handle input changes and save to sessionStorage
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setName(value);

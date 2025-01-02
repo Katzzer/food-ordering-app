@@ -16,8 +16,8 @@ const Header = () => {
     return (
         <header className="d-flex justify-content-between align-items-center bg-dark py-3 position-sticky top-0">
             <div className="d-flex align-items-center">
-                <Link href="/" className="text-white text-decoration-none fs-4 fw-bold">
-                    Food Ordering App
+                <Link href="/" className="text-white text-decoration-none fs-4 fw-bold" id="application-name">
+                    Foodie Heaven
                 </Link>
             </div>
 

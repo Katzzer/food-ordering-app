@@ -2,25 +2,34 @@ header {
   padding: 1rem 3rem 1rem 3rem;
   background: pink;
   z-index: 999;
+  flex-shrink: 0;
 
   @media screen and (max-width: 500px) {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-}
 
-#total-items-value,
-#total-items-name {
-  @media screen and (max-width: 500px) {
-    display: none;
+  #application-name {
+    @media screen and (max-width: 380px) {
+      font-size: 1.2rem !important;
+    }
+  }
+
+  #total-items-value,
+  #total-items-name {
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
+  }
+
+  #total-items-value,
+  #total-price-value {
+    margin-top: auto;
+    margin-left: 10px;
+  }
+
+  .total-items-container {
+    display: flex;
   }
 }
 
-#total-items-value,
-#total-price-value {
-  margin-left: 10px;
-}
-
-.total-items-container {
-  display: flex;
-}
