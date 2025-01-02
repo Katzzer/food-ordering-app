@@ -1,15 +1,11 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import "@/styles/index.scss"
 
 const Home: React.FC = () => {
     return (
-        <div className="d-flex flex-column"
-             style={{
-                 color: "#333",
-                 padding: "20px",
-                 minHeight: "80vh"
-             }}>
+        <div className="d-flex flex-column index-page-container">
             <main className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
                 <h1 className="display-4 fw-bold" style={{ fontSize: "3.5rem", color: "#333" }}>
                     Welcome to <span style={{ color: "#0004ff" }}>Foodie Heaven!</span>
@@ -22,23 +18,24 @@ const Home: React.FC = () => {
                     Your next favorite meal is just a click away!
                 </p>
 
-                <div className="mt-4">
+                <div className="mt-4" id="buttons-container">
                     <Link
                         href="/menu"
-                        className="btn btn-primary btn-lg me-3"
-                        style={{ padding: "10px 20px", fontSize: "1.2rem" }}
+                        className="btn btn-primary btn-lg link-button"
+                        id="explore-menu-btn"
                     >
                         🚀 Explore Menu
                     </Link>
 
                     <Link
                         href="/about-us"
-                        className="btn btn-outline-secondary btn-lg"
-                        style={{ padding: "10px 20px", fontSize: "1.2rem" }}
+                        className="btn btn-outline-secondary btn-lg link-button"
+                        id="learn-more-btn"
                     >
                         📖 Learn More
                     </Link>
                 </div>
+
             </main>
         </div>
     );

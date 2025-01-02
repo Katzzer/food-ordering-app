@@ -1,0 +1,25 @@
+header {
+  padding: 1rem 3rem 1rem 3rem;
+  background: pink;
+
+  @media screen and (max-width: 500px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+#total-items-value,
+#total-items-name {
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+}
+
+#total-items-value,
+#total-price-value {
+  margin-left: 10px;
+}
+
+.total-items-container {
+  display: flex;
+}

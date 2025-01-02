@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { OrderData } from "@/data/types";
 import Link from "next/link";
+import "@/styles/all-orders.scss"
 
 const AllOrders: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -138,7 +139,7 @@ const AllOrders: React.FC = () => {
                     )}
 
                     {/* Added Order More Food Button Here */}
-                    <div className="text-center mt-3">
+                    <div className="text-center mt-3" id="order-more-food-button-container">
                         <Link href="/menu" className="btn btn-primary btn-lg">
                             Order More Food
                         </Link>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { clearFoodOrders } from '@/store/globalSlice';
 import { FoodOrder } from "@/data/types";
+import '@/styles/order-summary.scss';
 
 type Payload = {
     name: string;
@@ -18,6 +19,7 @@ const OrderSummary: React.FC = () => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(0);
 
     const foodOrders = useSelector(
         (state: { global: { foodOrders: FoodOrder[] } }) => state.global.foodOrders
@@ -33,6 +35,13 @@ const OrderSummary: React.FC = () => {
         if (savedName) setName(savedName);
         if (savedAddress) setAddress(savedAddress);
         if (savedPhone) setPhone(savedPhone);
+    }, []);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     // Handle input changes and save to sessionStorage
@@ -97,9 +106,19 @@ const OrderSummary: React.FC = () => {
         return total + item.price * (item.quantity || 1);
     }, 0);
 
+    const getTotalPriceSpan = () => {
+        if (windowWidth > 500) {
+            return 3;
+        } else if (windowWidth > 400) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
     return (
         <div className="d-flex flex-column align-items-center justify-content-center py-4">
-            <div className="w-75 bg-light p-5 rounded shadow mb-4">
+            <div className="bg-light rounded shadow mb-4" id="order-summary-container">
                 <h2 className="text-center mb-4">Order Summary</h2>
 
                 <div className="my-4">
@@ -110,25 +129,25 @@ const OrderSummary: React.FC = () => {
                         <table className="table table-bordered text-center">
                             <thead className="table-dark">
                             <tr>
-                                <th>Name</th>
-                                <th>Price Per Unit</th>
-                                <th>Quantity</th>
-                                <th>Total Price (Per Item)</th>
+                                <th id="item-name-th">Name</th>
+                                <th id="item-price-per-unit-th">Price Per Unit</th>
+                                <th id="item-quantity-th">Quantity</th>
+                                <th id="item-price-th">Total Price (Per Item)</th>
                             </tr>
                             </thead>
                             <tbody>
                             {foodOrders.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.name}</td>
-                                    <td>${item.price.toFixed(2)}</td>
-                                    <td>{item.quantity || 1}</td>
-                                    <td>${(item.price * (item.quantity || 1)).toFixed(2)}</td>
+                                    <td id="item-name-td">{item.name}</td>
+                                    <td id="item-price-per-unit-td">${item.price.toFixed(2)}</td>
+                                    <td id="item-quantity-td">{item.quantity || 1}</td>
+                                    <td id="item-price-td">${(item.price * (item.quantity || 1)).toFixed(2)}</td>
                                 </tr>
                             ))}
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colSpan={3} className="text-end fw-bold">Total Price:</td>
+                                <td colSpan={getTotalPriceSpan()} className="text-end fw-bold">Total Price:</td>
                                 <td className="fw-bold">${totalOrderPrice.toFixed(2)}</td>
                             </tr>
                             </tfoot>

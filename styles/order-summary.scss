@@ -1,0 +1,32 @@
+#item-price-per-unit-th {
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+}
+
+#item-price-per-unit-td {
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+}
+
+#item-quantity-th {
+  @media screen and (max-width: 400px) {
+    display: none;
+  }
+}
+
+#item-quantity-td {
+  @media screen and (max-width: 400px) {
+    display: none;
+  }
+}
+
+#order-summary-container {
+  padding: 3rem;
+  width: 75%;
+  @media screen and (max-width: 500px) {
+    padding: 1rem;
+    width: 100%;
+  }
+}

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectTotalFoodItems, selectTotalPrice } from '@/store/globalSlice';
 import Link from "next/link";
 import { FoodProps } from "@/data/types";
+import "@/styles/header.scss"
 
 const Header = () => {
     const totalItems = useSelector(selectTotalFoodItems);
@@ -13,8 +14,7 @@ const Header = () => {
     );
 
     return (
-        <header className="d-flex justify-content-between align-items-center p-3 bg-dark py-3 position-sticky top-0 px-5">
-            {/* Added px-5 class for more left and right padding */}
+        <header className="d-flex justify-content-between align-items-center bg-dark py-3 position-sticky top-0">
             <div className="d-flex align-items-center">
                 <Link href="/" className="text-white text-decoration-none fs-4 fw-bold">
                     Food Ordering App
@@ -32,9 +32,15 @@ const Header = () => {
                     }
                 }}
             >
-                <div>
-                    <span className="fw-bold">Total Items:</span> {totalItems} <br />
-                    <span className="fw-bold">Total Price:</span> ${totalPrice.toFixed(2)}
+                <div className="d-flex flex-column">
+                    <div className="total-items-container">
+                        <div className="fw-bold" id="total-items-name">Total Items:</div>
+                        <div id="total-items-value">{totalItems}</div>
+                    </div>
+                    <div className="total-items-container">
+                        <div className="fw-bold" id="total-price-name">Total Price:</div>
+                        <div id="total-price-value"> ${totalPrice.toFixed(2)}</div>
+                    </div>
                 </div>
             </Link>
         </header>
