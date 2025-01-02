@@ -3,8 +3,8 @@ import axios from 'axios';
 import { Foods } from '@/data/foods';
 import {FoodOrder, OrderData} from '@/data/types';
 
-const SUBSCRIPTION_KEY = process.env.AZURE_SUBSCRIPTION_KEY || '4793763d0552436db7b68f495039d637'; // TODO: Replace with actual environment variable.
-const API_ENDPOINT = process.env.AZURE_API_ENDPOINT || 'https://food-ordering-app.azure-api.net/food-ordering-app-fce/SaveOrderFunction';
+const SUBSCRIPTION_KEY = process.env.AZURE_SUBSCRIPTION_KEY
+const API_ENDPOINT = process.env.AZURE_API_ENDPOINT
 const PARTITION_KEY = 'food';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -63,7 +63,9 @@ function updateOrderPrices(
 async function sendOrderToAPI(orderData: OrderData) {
     console.log("Sending order data:", orderData);
 
-    return axios.post(API_ENDPOINT, orderData, {
+    const url = API_ENDPOINT + "/SaveOrderFunction"
+
+    return axios.post(url, orderData, {
         headers: {
             'Content-Type': 'application/json',
             'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,

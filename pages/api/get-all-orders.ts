@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
-const SUBSCRIPTION_KEY = process.env.AZURE_SUBSCRIPTION_KEY || '4793763d0552436db7b68f495039d637'; // TODO: Replace with actual environment variable.
-const API_ENDPOINT = process.env.AZURE_API_ENDPOINT || 'https://food-ordering-app.azure-api.net/food-ordering-app-fce/GetAllOrdersFunction';
+const SUBSCRIPTION_KEY = process.env.AZURE_SUBSCRIPTION_KEY;
+const API_ENDPOINT = process.env.AZURE_API_ENDPOINT;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
@@ -16,7 +16,9 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
     try {
         console.log("Fetching all orders from the API...");
 
-        const response = await axios.get(API_ENDPOINT, {
+        const url = API_ENDPOINT + "/GetAllOrdersFunction"
+
+        const response = await axios.get(url, {
             headers: {
                 'Content-Type': 'application/json',
                 'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
