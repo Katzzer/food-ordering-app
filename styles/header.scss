@@ -1,6 +1,7 @@
 header {
   padding: 1rem 3rem 1rem 3rem;
   background: pink;
+  z-index: 999;
 
   @media screen and (max-width: 500px) {
     padding-left: 1rem;
