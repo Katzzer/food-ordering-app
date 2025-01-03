@@ -7,21 +7,28 @@ import { store, persistor } from '@/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <Provider store={store}>
-            <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
-                <div className="app-wrapper">
-                    <Header />
+        <>
+            <Head>
+                <title>Foodie Heaven</title>
+            </Head>
+            <Provider store={store}>
+                <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+                    <div className="app-wrapper">
+                        <Header />
 
-                    <main className="app-content">
-                        <Component {...pageProps} />
-                    </main>
+                        <main className="app-content">
+                            <Component {...pageProps} />
+                        </main>
 
-                    <Footer />
-                </div>
-            </PersistGate>
-        </Provider>
+                        <Footer />
+                    </div>
+                </PersistGate>
+            </Provider>
+        </>
+
     );
 }
